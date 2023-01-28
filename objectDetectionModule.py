@@ -54,19 +54,5 @@ class objectDetector():
           
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
-        colors = np.random.uniform(0, 255, size=(len(boxes), 3))
-
-        pixels_ratio_array = []
-
-        for i, conf in zip(range(len(boxes)), confidences):
-            if i in indexes:
-                x, y, w, h = boxes[i]
-                label = str(self.classes[class_ids[i]])
-                color = colors[i]
-                text = label+ ' ' +str(round(conf, 2))
-                if draw:
-                    cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
-                    cv2.putText(img, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, self.colorWhite, 1)
-
-        return img
+        return class_ids, boxes, confidences, indexes
 
